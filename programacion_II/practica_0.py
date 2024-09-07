@@ -143,8 +143,8 @@ def mystery(a: int, b: int) -> int:
     return a
   return mystery(2 * a, b - 1)
 
-result = mystery(7, 3)
-print(result)
+""" result = mystery(7, 3)
+print(result) """
 
 # 1. ¿Qué muestra por pantalla este código? Intente deducirlo sin ejecutar el código.
 
@@ -161,4 +161,179 @@ print(result)
   Para f(x,3) muestra el resultado de hacer (2^3 * x)
   Y Para f(x,y) muestra el resultado de hacer (2^y * x)
 """
+
+# Ejercicio 6
+
+# Escriba una función recursiva que tome un numero natural n e imprima todos los números
+# desde n hasta 1.
+
+
+def n_naturales(n: int) -> int | None:
+  if(n > 1): 
+    print(n)
+    return n_naturales(n - 1)
+  
+  print(1)
+
+""" n_naturales(16) """
+
+# Ejercicio 7
+
+# Convierta la siguiente función recursiva a una iterativa.
+
+def recursiva(t: int, k: int) -> int:
+  if t >= 100:
+    return k
+  else:
+    return recursiva(t + k, k + 1)
+  
+
+def iterativa(t: int, k: int) -> int:
+  while(t < 100):
+    t += k
+    k += 1
+  return k
+
+""" print(recursiva(50,5))
+
+print(iterativa(50,5)) """
+
+# Ejercicio 8
+
+# Escriba una función recursiva que calcule el n-ésimo número triangular
+# (el número 1 + 2 + 3 + ... + n).
+
+def num_triangular(n: int) -> int:
+  if(n == 1): return n
+
+  return n + num_triangular(n - 1)
+
+""" print(num_triangular(6)) """
+
+# Ejercicio 9
+
+# Escriba una función recursiva que reciba un número positivo n y devuelva
+#  la cantidad de dígitos que tiene.
+
+def cant_digitos(n: int) -> int | None:
+  if(n < 10): return 1
+  return 1 + cant_digitos(n // 10) 
+
+""" print(cant_digitos(10)) """
+
+# Ejercicio 10
+
+# Escriba una función recursiva que reciba 2 enteros n y b y devuelva True
+# si n es potencia de b.
+
+def es_potencia(n: int, b: int) -> bool:
+  if(n == 1): return True
+  if(n < b): return False
+  if(n % b != 0): return False
+
+  return es_potencia(n // b, b)
+
+  
+
+
+#Ejemplos:
+""" print(es_potencia(8, 2)) #-> True
+print(es_potencia(64, 4)) #-> True
+print(es_potencia(70, 10)) #-> False """
+
+
+# Recursión con listas
+
+
+# Ejercicio 11
+
+# Escriba una función recursiva que encuentre el mayor elemento de una lista.
+
+
+lista = [2,5,34546,6,53,3458437592,4,33,56]
+
+def mayor_lista(lista: list[int]) -> int:
+  if(len(lista) == 1): return lista[0]
+  if(lista[0] > lista[len(lista) - 1]): 
+    lista.pop(len(lista) - 1)
+    return mayor_lista(lista)
+  else:
+    lista.pop(0)
+    return mayor_lista(lista)
+
+""" print(mayor_lista(lista)) """
+    
+
+# Ejercicio 12
+# Convierta la siguiente función iterativa a una recursiva.
+
+def iterativa_listas(l: list[int]) -> int:
+  c = 1
+  for i in l:
+    c = c * i
+  return c
+
+def recursiva_listas(l: list[int]) -> int:
+  if(len(l) == 1): return l[0]
+  return l.pop(0) * recursiva_listas(l)
+
+""" print(iterativa_listas([2,6,4]))
+print(recursiva_listas([2,6,4])) """
+
+# Ejercicio 13
+# Escriba una función recursiva para replicar los elementos de una lista
+# una cantidad n de veces.
+
+# Ejemplo:
+# replicar([1, 3, 3, 7], 2) -> ([1, 1, 3, 3, 3, 3, 7, 7])
+
+def replicar(l: list, n: int) -> list:
+  if(len(l) == 1): return [l[0]] * n
+  return [l.pop(0)] * n + replicar(l,n)
+
+""" print(replicar([1, 3, 3, 7], 2)) """
+
+# Ejercicio 14
+
+# Escriba una función que tome una lista y devuelva esa misma lista en orden inverso. 
+# Realice dos versiones:
+#  • reversaR que resuelva utilizando recursión.
+#  • reversaI que resuelva utilizando iteración.
+# Nota: No utilice la función built-in reversed en su solución, ni el método reversed.
+
+def reversaR(lista: list) -> list:
+  if(len(lista) == 1): return [lista[0]]
+  return [lista[len(lista) - 1]] + reversaR(lista[:len(lista) - 1])
+
+def reversaI(lista: list) -> list:
+
+  nueva_lista = []
+  for l in lista:
+    nueva_lista.insert(0,l)
+  return nueva_lista
+
+""" print(reversaR([1,23,43,546,7643,32]))
+print(reversaI([1,23,43,546,7643,32])) """
+
+# Ejercicio 15
+
+# Escribir una función recursiva que reciba como parámetros dos cadenas a y b, 
+# y encuentre la posición de la primer ocurrencia de b como subcadena de a.
+
+def posicion_de(a: str, b: str) -> int | None:
+  if(len(a) < len(b)): return -1
+  if(a.startswith(b)): return 0
+  if(not a.startswith(b)): return 1 + posicion_de(a[1:],b)
+  else: return 
+
+""" print(posicion_de("Hola, Mundo","Hola")) """
+
+
+# Wrappers 🌯🫔
+from typing import Tuple
+# Ejercicio 16
+
+# Escriba una función recursiva que dada una cadena determine si en la misma
+# hay más letras 'A' o letras 'E'. 
+# Utilice una función auxiliar.
 
