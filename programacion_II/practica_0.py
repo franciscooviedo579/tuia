@@ -330,10 +330,62 @@ def posicion_de(a: str, b: str) -> int | None:
 
 
 # Wrappers 🌯🫔
+
+# Ejemplo
 from typing import Tuple
+
+def _promediar(lista: list[float]) -> Tuple[int, float]:
+  if len(lista) == 0:
+    return 0, 0
+  cant, suma = _promediar(lista[1:])
+  return cant + 1, suma + lista[0]
+def promediar(lista: list[float]) -> float:
+  cant, suma = _promediar(lista)
+  return suma / cant
+
+
+""" print(promediar([1,2,3,4,5])) """
+
 # Ejercicio 16
 
 # Escriba una función recursiva que dada una cadena determine si en la misma
 # hay más letras 'A' o letras 'E'. 
 # Utilice una función auxiliar.
 
+def _masAoE(cadena: str)-> Tuple[int,int]:
+  if(len(cadena) == 0 ): return 0, 0
+  cantA, cantE = _masAoE(cadena[1:])
+  if(cadena[0].upper() == 'A'): return cantA + 1, cantE 
+  if(cadena[0].upper() == 'E'): return cantA, cantE + 1
+  return cantA, cantE
+
+def masAoE(cadena: str) -> None:
+  cantA, cantE = _masAoE(cadena)
+  if(cantA == 0 and cantE == 0):
+    print("No hay As ni Es en la cadena")
+  else:
+    print("Hay misma cantidad de As y Es" if cantA == cantE
+          else "Hay mas As que Es" if cantA > cantE 
+          else "Hay mas Es que As")
+
+""" masAoE("Agustin") """
+
+# Ejercicio 17
+
+# Escriba una función potencia(b,n) que calcule la potencia para cualquier n entero, 
+# incluso si n es negativa. Utilice una función auxiliar.
+
+def _potencia(base: int, exponente: int) -> float:
+  if(exponente == 0): return 1
+  if(exponente < 0): return base * _potencia(base, (exponente * -1) - 1)  
+  return base * _potencia(base, exponente - 1)  
+
+def potencia(base: int, exponente: int) -> float:
+  resultado = _potencia(base, exponente)
+  if(exponente > 0):
+    return resultado
+  else:
+    return 1 / resultado
+  
+
+""" print(potencia(0,0)) """
