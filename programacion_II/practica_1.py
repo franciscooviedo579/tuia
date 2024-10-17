@@ -401,7 +401,7 @@ class Hacker(Primates):
     print("Soy un Kaker")
 
 
-animal = Animal("Animal")
+""" animal = Animal("Animal")
 mamifero = Mamiferos("Mamifero")
 felino = Felinos("Felino")
 canido = Canidos("Canido")
@@ -415,4 +415,50 @@ canido.speak()
 primate.speak()
 hacker.speak()
 
-hacker.talk()
+hacker.talk() """
+
+# Ejercicio 9
+
+""" 
+Complete la funcionalidad de la clase Jugador, implementando los siguientes métodos:
+• golpeado: quita vida al jugador.
+• golpear: quita vida al enemigo y lo agrega a la lista de enemigos golpeados. 
+"""
+
+class Entidad:
+
+  def __init__(self, vida_inicial: int):
+    self.vida = vida_inicial
+
+class Enemigo(Entidad):
+  pass
+
+class Jugador(Entidad):
+
+  def __init__(self, vida_inicial: int):
+    super().__init__(vida_inicial)
+    self.enemigos_golpeados = []
+
+  def golpeado(self, cuanto: float):
+    self.vida -= cuanto
+    
+
+  def golpear(self, enemigo: 'Enemigo', cuanto: float):
+    enemigo.vida -= cuanto
+    self.enemigos_golpeados.append(enemigo)
+    
+""" enemigo = Enemigo(100)
+
+jugador = Jugador(100)
+
+print(f"Enemigo: {enemigo.vida}")
+
+print(f"jugador: {jugador.vida}")
+
+jugador.golpear(enemigo, 20)
+
+
+print(f"Enemigo: {enemigo.vida}")
+
+print(f"jugador: {jugador.vida}")
+print(f"jugador: {jugador.enemigos_golpeados}") """
