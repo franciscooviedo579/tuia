@@ -4,8 +4,8 @@ from collections import deque
 """
 Alumnos:
   - Larrubia, Agustin.
-  - ...
-  - ...
+  - Oviedo, Francisco.
+  - Calenta, Nicolas.
 """
 
 def es_palindromo(s: str) -> bool:
