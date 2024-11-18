@@ -23,21 +23,27 @@ def es_palindromo(s: str) -> bool:
 
 class GrafoDirigido:
     def __init__(self) -> None:
-        # Completar
-        ...
-        
+        """Inicializa un grafo dirigido vacío."""
+        self.vertices = {}
+    
     def agregar_vertice(self, vertice) -> None:
-        # Comletar 
-        ...
-            
+        """Agrega un vértice al grafo si no existe."""
+        if vertice not in self.vertices:
+            self.vertices[vertice] = set()
+    
     def agregar_arista(self, origen, destino) -> None:
-        # Completar
-        ...
-        
+        """Agrega una arista dirigida desde `origen` hacia `destino`."""
+        if origen not in self.vertices:
+            self.agregar_vertice(origen)
+        if destino not in self.vertices:
+            self.agregar_vertice(destino)
+        self.vertices[origen].add(destino)
+    
     def __eq__(self, other: "GrafoDirigido") -> bool:
-        """ compara dos grafos dirigidos (sin tener en cuenta el orden de los conjuntos de vertices y aristas)"""
-        # Completar
-        ...
+        """Compara dos grafos dirigidos sin importar el orden de los vértices y aristas."""
+        if not isinstance(other, GrafoDirigido):
+            return False
+        return self.vertices == other.vertices
     
 def generar_G_r(n: int, alfabeto: list[str]) -> GrafoDirigido | None:
     """
