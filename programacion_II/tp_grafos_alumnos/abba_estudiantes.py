@@ -44,7 +44,7 @@ class GrafoDirigido:
         if not isinstance(other, GrafoDirigido):
             return False
         return self.vertices == other.vertices
-    
+
 def generar_G_r(n: int, alfabeto: list[str]) -> GrafoDirigido | None:
     """
     Genera el grafo de reemplazos para todas las cadenas posibles de longitud `n`
@@ -66,17 +66,59 @@ def generar_G_r(n: int, alfabeto: list[str]) -> GrafoDirigido | None:
                               `n` es 0 o si el alfabeto está vacío, ya que no
                               pueden generarse cadenas en estos casos.
     """
-    # Completar 
-    ...
+
+    if n <= 0 or not alfabeto:
+        return None
+
+    combinaciones = ["".join(c) for c in product(alfabeto, repeat=n)]
+    
+    grafo = GrafoDirigido()
+    
+    for combinacion in combinaciones:
+        grafo.agregar_vertice(combinacion)
+
+    for s in combinaciones:
+        for char1 in alfabeto:
+            for char2 in alfabeto:
+                if char1 != char2:
+
+                    s_reemplazo = ""
+                    for char in s:
+                        if char == char1:
+                            s_reemplazo += char2
+                        else:
+                            s_reemplazo += char
+                    
+                    grafo.agregar_arista(s, s_reemplazo)
+
+    return grafo
 
 def distancia_a_palindromo(grafo: GrafoDirigido, start: str) -> int:
     """ utiliza un algoritmo BFS para encontrar la minima distancia desde start
     a un palindromo en el grafo de reemplazos"""
-    # Completar 
-    ...
+    
+    queue = deque([(start, 0)])
 
+    visitados = set()
+
+    while queue:
+        nodo_actual, distancia = queue.popleft()
+
+        if es_palindromo(nodo_actual):
+            return distancia
+
+
+        if nodo_actual in visitados:
+            continue
+        visitados.add(nodo_actual)
+
+        for vecino in grafo.vertices.get(nodo_actual, set()):
+            if vecino not in visitados:
+                queue.append((vecino, distancia + 1))
+
+    return -1
 
 # Ejemplo Básico:
-""" grafo = generar_G_r(4, ["o", "n", "c", "e"])
-print(grafo.vecinos)
-print(distancia_a_palindromo(grafo, "once")) # Deberia devolver 2. """
+''' grafo = generar_G_r(4, ["o", "n", "c", "e"])
+print(grafo.vertices)
+print(distancia_a_palindromo(grafo, "once")) # Deberia devolver 2. '''
